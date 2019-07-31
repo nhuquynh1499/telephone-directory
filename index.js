@@ -10,7 +10,10 @@ var fs = require('fs');
 
 var listContact = [];
 
-
+function loadData() {
+  var fileContent = fs.readFileSync('./data.json');
+  listContact = JSON.parse(fileContent);
+}
 
 function showMenu() {
   console.log('0. Show all contacts')
@@ -54,7 +57,9 @@ function showMenu() {
 
 
 
+
 function main() {
+  loadData();
   showMenu();
 }
 
