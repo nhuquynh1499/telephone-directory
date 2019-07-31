@@ -60,6 +60,16 @@ function showContacts() {
     console.log(contact.name, contact.phoneNumber);
 }
 
+function showCreateContact() {
+  var name = readlineSync.question('> Name: ');
+  var phoneNumber = readlineSync.question('> Phone number: ');
+  var newContact = {
+    name: name,
+    phoneNumber: phoneNumber
+  }
+  listContact.push(newContact);
+}
+
 function main() {
   loadData();
   showMenu();
