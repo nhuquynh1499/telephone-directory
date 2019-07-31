@@ -55,8 +55,10 @@ function showMenu() {
   }
 }
 
-
-
+function showContacts() {
+  for (var contact of listContact)
+    console.log(contact.name, contact.phoneNumber);
+}
 
 function main() {
   loadData();
