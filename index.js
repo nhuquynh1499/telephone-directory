@@ -75,6 +75,24 @@ function showCreateContact() {
   listContact.push(newContact);
 }
 
+function showEditContact() {
+  var needEdit = readlineSync.question("Search a contact: ");
+  var contact = showSearchContact(needEdit);
+  if (contact !== -1) {
+    listContact = listContact.map(function (item) {
+      console.log(item);
+      console.log(contact);
+      if (item === contact) {
+        item.name = readlineSync.question("Input new name: ");
+        item.phoneNumber = readlineSync.question("Input new phone number: ");
+      }
+      return item;
+    });
+  }
+  else
+    console.log("No contact");
+}
+
 function showSearchContact(needSearch) {
   for (var item of listContact) {
     if (item.phoneNumber.indexOf(needSearch) !== -1)
