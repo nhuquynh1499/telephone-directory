@@ -80,8 +80,6 @@ function showEditContact() {
   var contact = showSearchContact(needEdit); 
   if (contact !== -1) {
     listContact = listContact.map(function (item) {
-      console.log(item);
-      console.log(contact);
       if (item === contact) {
         item.name = readlineSync.question("Input new name: ");
         item.phoneNumber = readlineSync.question("Input new phone number: ");
@@ -91,6 +89,22 @@ function showEditContact() {
   }
   else
     console.log("No contact");
+}
+
+function showDeleteContact() {
+  var needDelete = readlineSync.question("Search a contact: ");
+  var contact = showSearchContact(needDelete);
+  if (contact !== -1) {
+    console.log(contact);
+    var choice = readlineSync.question("Do you delete the contact? (Y/N)");
+    if (choice === "N") {
+      return -1;
+    }
+    else {
+      listContact.splice(listContact.indexOf(contact), 1);
+      console.log("Deleted.");
+    }
+  } else console.log('No contact');
 }
 
 function showSearchContact(needSearch) {
