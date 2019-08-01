@@ -99,6 +99,10 @@ function showSearchContact(needSearch) {
   }
 }
 
+function saveAndExit() {
+  fs.writeFileSync('./data.json', JSON.stringify(listContact));
+}
+
 function main() {
   loadData();
   showMenu();
