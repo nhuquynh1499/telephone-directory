@@ -44,7 +44,7 @@ function showMenu() {
     case '4':
       var needSearch = readlineSync.question("> Search: ");
       var result = showSearchContact(needSearch);
-      if (result !== -1)
+      if (result !== [])
         console.log(result);
       else
         console.log('No contact');
@@ -78,7 +78,7 @@ function showCreateContact() {
 function showEditContact() {
   var needEdit = readlineSync.question("Search a contact: ");
   var contact = showSearchContact(needEdit); 
-  if (contact !== -1) {
+  if (contact !== []) {
     listContact = listContact.map(function (item) {
       if (item === contact) {
         item.name = readlineSync.question("Input new name: ");
@@ -94,7 +94,7 @@ function showEditContact() {
 function showDeleteContact() {
   var needDelete = readlineSync.question("Search a contact: ");
   var contact = showSearchContact(needDelete);
-  if (contact !== -1) {
+  if (contact !== []) {
     console.log(contact);
     var choice = readlineSync.question("Do you delete the contact? (Y/N)");
     if (choice === "N") {
@@ -108,9 +108,10 @@ function showDeleteContact() {
 }
 
 function showSearchContact(needSearch) {
+  var arrReult = [];
   for (var item of listContact) {
     if (item.phoneNumber.indexOf(needSearch) !== -1)
-      return item;
+      arrReult.push(item);
     else {
       function unsignedName(str) {
         str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
@@ -122,12 +123,12 @@ function showSearchContact(needSearch) {
         str = str.replace(/đ/g, 'd');
         return str;
       }
-      var newName = unsignedName(needSearch);
+      var newName = unsignedName(needSearch.toLowerCase());
       if (item.name.toLowerCase().indexOf(newName) !== -1)
-        return item;
+        arrReult.push(item);
     }
   }
-  return -1;
+  return arrReult;
 }
 
 function saveAndExit() {
