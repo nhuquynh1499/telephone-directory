@@ -77,7 +77,7 @@ function showCreateContact() {
 
 function showEditContact() {
   var needEdit = readlineSync.question("Search a contact: ");
-  var contact = showSearchContact(needEdit);
+  var contact = showSearchContact(needEdit); 
   if (contact !== -1) {
     listContact = listContact.map(function (item) {
       console.log(item);
@@ -108,13 +108,12 @@ function showSearchContact(needSearch) {
         str = str.replace(/đ/g, 'd');
         return str;
       }
-      var newName = unsignedName(item.name.toLowerCase());
+      var newName = unsignedName(needSearch);
       if (item.name.toLowerCase().indexOf(newName) !== -1)
         return item;
-      else
-        return -1;
     }
   }
+  return -1;
 }
 
 function saveAndExit() {
