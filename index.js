@@ -7,7 +7,7 @@
  */
 var readlineSync = require('readline-sync');
 var fs = require('fs');
-const {tale} = require('table');
+const { table } = require('table');
 
 var listContact = [];
 var output = [['Name', 'Phone Number']];
@@ -66,11 +66,10 @@ function showMenu() {
 }
 
 function showContacts() {
-  var list = [];
   for (var contact of listContact) {
-    list.push([contact.name, contact.phoneNumber]);
+    output.push([contact.name, contact.phoneNumber]);
   }
-  output = table(list);
+  output = table(output);
   console.log(output);
 }
 
