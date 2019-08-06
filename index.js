@@ -10,7 +10,7 @@ var fs = require('fs');
 const { table } = require('table');
 
 var listContact = [];
-var output = [['Name', 'Phone Number']];
+var output = [["Name", "Phone number"]];
 
 function loadData() {
   var fileContent = fs.readFileSync('./data.json');
@@ -47,6 +47,7 @@ function showMenu() {
       var needSearch = readlineSync.question("> Search: ");
       var result = showSearchContact(needSearch);
       if (result !== []) {
+        result.unshift(["Name", "Phone number"]);
         output = table(result);
         console.log(output);
       } else {
@@ -66,10 +67,11 @@ function showMenu() {
 }
 
 function showContacts() {
+  var list = [];
   for (var contact of listContact) {
-    output.push([contact.name, contact.phoneNumber]);
+    list.push([contact.name, contact.phoneNumber]);
   }
-  output = table(output);
+  output = table(output.concat(list));
   console.log(output);
 }
 
@@ -119,7 +121,7 @@ function showSearchContact(needSearch) {
   var arrReult = [];
   for (var item of listContact) {
     if (item.phoneNumber.indexOf(needSearch) !== -1)
-      arrReult.push(item);
+      arrReult.push([item.name, item.phoneNumber]);
     else {
       function unsignedName(str) {
         str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
