@@ -10,6 +10,7 @@ var fs = require('fs');
 const {tale} = require('table');
 
 var listContact = [];
+var output = [['Name', 'Phone Number']];
 
 function loadData() {
   var fileContent = fs.readFileSync('./data.json');
@@ -45,10 +46,13 @@ function showMenu() {
     case '4':
       var needSearch = readlineSync.question("> Search: ");
       var result = showSearchContact(needSearch);
-      if (result !== [])
-        console.log(result);
-      else
+      if (result !== []) {
+        output = table(result);
+        console.log(output);
+      } else {
         console.log('No contact');
+      } 
+
       showMenu();
       break;
     case '5':
@@ -62,8 +66,12 @@ function showMenu() {
 }
 
 function showContacts() {
-  for (var contact of listContact)
-    console.log(contact.name, contact.phoneNumber);
+  var list = [];
+  for (var contact of listContact) {
+    list.push([contact.name, contact.phoneNumber]);
+  }
+  output = table(list);
+  console.log(output);
 }
 
 function showCreateContact() {
@@ -126,7 +134,7 @@ function showSearchContact(needSearch) {
       }
       var newName = unsignedName(needSearch.toLowerCase());
       if (item.name.toLowerCase().indexOf(newName) !== -1)
-        arrReult.push(item);
+        arrReult.push([item.name, item.phoneNumber]);
     }
   }
   return arrReult;
