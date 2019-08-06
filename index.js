@@ -7,6 +7,7 @@
  */
 var readlineSync = require('readline-sync');
 var fs = require('fs');
+const {tale} = require('table');
 
 var listContact = [];
 
